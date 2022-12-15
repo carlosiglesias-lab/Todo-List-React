@@ -7,10 +7,13 @@ const Home = () => {
 		<div id="container">
 			<h1 className="todo-header">To do List</h1>
 			<input id="addToDo" type="text" placeholder="Add to do here" onKeyUp={(e) => {
-				if (e.key == "Enter"){
+				if (e.key == "Enter" && e.target.value.trim() != "" && todos.filter((item,i) => item == e.target.value)== ""){
 					setTodos([...todos, e.target.value]);
+					console.log(todos.filter(item => item == e.target.value));		
+					//todos.filter(item => item == e.target.value)== "" ? console.log("vacio") : console.log("lleno");
 					e.target.value = "";
 				}
+				
 			}
 			} />
 			<ul>
@@ -18,13 +21,13 @@ const Home = () => {
 					return (
 						<li key={index}>
 							<span><i className="fa fa-trash" onClick={(e)=>{
-								setTodos(todos.filter(item => item !== todo));								
+								setTodos(todos.filter((e,i) => i !== index));								
 							}}></i></span>{todo}
 						</li>
 					)
 				})}
 			</ul>
-			<p>{todos.length} Items left</p>
+			<p>{todos.length > 0 ? todos.length+" tasks left" : "No tasks, add a task"} </p>
 		</div>
 	);
 };
